@@ -250,6 +250,113 @@ button.accent {
     width: 100%;
 }
 
+#room-page {
+    position: relative;
+    height: 100%;
+}
+
+.room-container {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+    margin-top: 30px;
+    height: calc(100% - 60px);
+    max-height: 600px;
+    position: relative;
+}
+
+#room-page ul {
+    list-style-type: none;
+    background-color: #FFF;
+    margin: 0;
+    overflow: auto;
+    overflow-y: scroll;
+    padding: 0 20px 0px 20px;
+    height: calc(100% - 150px);
+}
+
+#room-page #roomForm {
+    padding: 20px;
+}
+
+#room-page ul li {
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+#room-page ul li p {
+    margin: 0;
+}
+
+#room-page .event-message {
+    width: 100%;
+    text-align: center;
+    clear: both;
+}
+
+#room-page .event-message p {
+    color: #777;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+#room-page .chat-message {
+    padding-left: 68px;
+    position: relative;
+}
+
+#room-page .chat-message i {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    line-height: 42px;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+#room-page .chat-message span {
+    color: #333;
+    font-weight: 600;
+}
+
+#room-page .chat-message p {
+    color: #43464b;
+}
+
+#roomForm .input-group input {
+    float: left;
+    width: calc(100% - 85px);
+}
+
+#roomForm .input-group button {
+    float: left;
+    width: 80px;
+    height: 38px;
+    margin-left: 5px;
+}
+
+.room-header {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #ececec;
+}
+
+.room-header h2 {
+    margin: 0;
+    font-weight: 500;
+}
 
 @media screen and (max-width: 730px) {
 
@@ -258,10 +365,20 @@ button.accent {
         margin-right: 10px;
         margin-top: 10px;
     }
+
+    .room-container {
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
 }
 
 @media screen and (max-width: 480px) {
     .chat-container {
+        height: calc(100% - 30px);
+    }
+
+    .room-container {
         height: calc(100% - 30px);
     }
 
@@ -276,6 +393,10 @@ button.accent {
         height: calc(100% - 120px);
     }
 
+    #room-page ul {
+        height: calc(100% - 120px);
+    }
+
     #messageForm .input-group button {
         width: 65px;
     }
@@ -284,7 +405,15 @@ button.accent {
         width: calc(100% - 70px);
     }
 
-    .chat-header {
+    #roomForm .input-group button {
+        width: 65px;
+    }
+
+    #roomForm .input-group input {
+        width: calc(100% - 70px);
+    }
+
+    .room-header {
         padding: 10px;
     }
 
@@ -292,7 +421,7 @@ button.accent {
         top: 60px;
     }
 
-    .chat-header h2 {
+    .room-header h2 {
         font-size: 1.1em;
     }
 }

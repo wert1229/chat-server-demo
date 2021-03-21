@@ -1,28 +1,39 @@
 package com.posicube.chatbot.controller;
 
 import com.posicube.chatbot.model.ChatMessage;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
+@RequiredArgsConstructor
+@Slf4j
 @Controller
 public class ChatController {
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
-    }
+    private final SimpMessageSendingOperations messagingTemplate;
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage,
-                               SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
+    @MessageMapping("/chat/join/{roomId}")
+    public void joinRoom(@Payload ChatMessage chatMessage,
+                                @DestinationVariable String roomId,
+                                SimpMessageHeaderAccessor headerAccessor) {
+        headerAccessor.getSessionAttributes().put("roomId", roomId);
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        return chatMessage;
+        chatMessage.setContent(chatMessage.getSender() + " 님이 입장했습니다.");
+        messagingTemplate.convertAndSend("/sub/chat/rooms/" + roomId, chatMessage);
     }
 
+    @MessageMapping("/chat/message")
+    public void sendMessage(@Payload ChatMessage chatMessage,
+                            SimpMessageHeaderAccessor headerAccessor) {
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+
+        // Do something
+
+        messagingTemplate.convertAndSend("/sub/chat/rooms/" + roomId, chatMessage);
+    }
 }
