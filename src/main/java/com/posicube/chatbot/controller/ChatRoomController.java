@@ -18,6 +18,7 @@ public class ChatRoomController {
     @PostMapping("/rooms")
     public ResponseEntity<?> createRoom(@RequestBody CreateRoomRequest request) {
         String id = chatService.createRoom(request.getName());
+        // TEST
         return ResponseEntity.ok(id);
     }
 
